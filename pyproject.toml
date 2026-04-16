@@ -1,0 +1,11 @@
+[project]
+name = "recce"
+version = "0.1.0"
+description = "A multi-agent competitive intelligence tool for product managers."
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.39.0",
+]
+
+[project.scripts]
+recce = "recce.cli:main"

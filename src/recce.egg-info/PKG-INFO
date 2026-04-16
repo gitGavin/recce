@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: recce
+Version: 0.1.0
+Summary: A multi-agent competitive intelligence tool for product managers.
+Requires-Python: >=3.11
+Requires-Dist: anthropic>=0.39.0
