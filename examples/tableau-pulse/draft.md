@@ -1,0 +1,30 @@
+## Tableau Pulse — Competitive One-Pager
+
+**Date:** April 2026
+**Sources reviewed:** 15
+
+### Positioning
+Tableau Pulse positions itself as a democratizing force in business intelligence, making data accessible to "everyone regardless of expertise" rather than requiring dashboard-building skills [Source 13]. The product aims to "evolve experiences around individual employee needs, making everyone more data-informed through composable insights that reshape analytics from a destination into a flexible capability" [Source 12]. Unlike traditional BI tools that require users to visit dashboards, Pulse brings insights directly into daily workflow via Slack, Teams, email, and mobile [Source 1, Source 3]. The target user is any business employee who needs metric awareness—from marketing leaders monitoring campaign performance to DevOps teams tracking software delivery KPIs [Source 2, Source 12].
+
+### Pricing
+Tableau Pulse is **included free with all Tableau Cloud editions** (Standard, Enterprise) and Embedded Analytics solutions [Source 1, Source 5, Source 13]. However, premium features require the **Tableau+ Bundle**, which includes Cross-Metric Analysis, Enhanced Q&A, Metrics Goals, Dynamic Sorting & Grouping, and AI-enhanced language capabilities [Source 4, Source 7, Source 14]. Standard Edition supports up to 3 sites, Enterprise up to 10 sites, and Tableau+ up to 50 sites [Source 5]. Competitor analyses note that "advanced features like Tableau Pulse and Tableau Agent require a Tableau+ premium license, not included in standard plans," which "can drive up total cost of ownership" [Source 8]. Exact pricing for the Tableau+ tier is not publicly disclosed.
+
+### Key Features
+1. **Metrics Layer (Headless BI)**: Centralized data catalog where metrics are "defined once and used across the organization" with "only one metric definition permitted for a set of metadata," creating a single source of truth [Source 2, Source 6].
+
+2. **AI-Powered Insights Platform**: Sophisticated statistical models "automatically detect drivers, trends, contributors, and outliers" and translate findings into natural language narratives; for example, it "can proactively alert marketing leaders to a dip in campaign performance using natural language" [Source 2, Source 12].
+
+3. **Proactive Alerts in Flow of Work**: Delivers personalized insights via Slack, Teams, email digests, and mobile apps; "emphasizes proactive alerts that check metric trends daily without requiring manual queries" [Source 1, Source 3, Source 14].
+
+4. **Enhanced Q&A (Discover)**: Premium feature providing "AI-powered conversational data investigation using natural language across metrics" with multilingual support for all Tableau Cloud-supported languages [Source 3, Source 4].
+
+5. **Cross-Metric Analysis**: Premium capability enabling users to "compare metrics side-by-side, surfacing relationships between conversion rates and customer acquisition costs" [Source 4, Source 14].
+
+### Differentiators
+Tableau Pulse's acquisition of Narrative Science in December 2021 powers its natural language generation capabilities, distinguishing it as "Tableau's first generally available generative AI capability" [Source 13]. The product operates on Salesforce's Einstein Trust Layer, "ensuring AI-powered experiences remain trustworthy while prioritizing data security and privacy" [Source 9]. Unlike competitors, Pulse emphasizes **bi-weekly feature releases** with continuous capability expansion [Source 4, Source 14]. The Metrics Layer architecture enables "metrics to be scaled like social media content" across the organization [Source 6]. Tableau uses its own product internally—developers and DevOps teams monitor KPIs with Pulse, "working far better than old spreadsheet approaches" [Source 12]. The February 2024 launch retired legacy features (Ask Data and Tableau Metrics), signaling full commitment to the new architecture [Source 6]. Recent Microsoft 365 integration allows embedding Pulse metrics into PowerPoint and Word with one-click refresh [Source 11].
+
+### Gaps / Weaknesses
+Tableau Pulse "does not currently support table calculations, limiting some analytical capabilities" [Source 10]. Analysis suggests "Pulse will not fully replace dashboards" because while "Pulse detects insights and allows deep dives on single metrics," dashboards still provide "broader view of multiple metrics" [Source 10]. The premium feature paywall creates adoption barriers—critics note that "Tableau's AI features—like Pulse and Agent—are only available through premium subscriptions, which can drive up total cost of ownership" [Source 8]. The product is **Tableau Cloud only** with no on-premises support [Source 3]. Technical transparency is limited: no public details on LLM providers, model specifications, accuracy benchmarks versus Power BI Copilot, customer adoption rates, or enterprise deployment statistics since the February 2024 launch.
+
+### PM Recommendation
+**Launch a proof-of-concept pilot with 3-5 power users in Sales and Marketing by end of Q2 2026** to evaluate whether Pulse's proactive alerting genuinely changes decision velocity compared to current dashboards. Focus testing on: (1) metric certification workflow—can we truly enforce "one definition" across teams? (2) alert fatigue—do daily notifications add value or noise? (3) premium feature ROI—does Cross-Metric Analysis justify Tableau+ costs versus building custom cross-metric dashboards? Concurrently, **conduct competitive benchmarking against Power BI Copilot by June 2026**, specifically testing natural language accuracy, insight relevance, and total cost per active user. Document concrete use cases where Pulse delivers faster time-to-insight than our existing stack; without measurable improvement, the premium tier investment cannot be justified.

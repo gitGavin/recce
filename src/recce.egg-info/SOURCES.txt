@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 src/recce/__init__.py
 src/recce/cli.py
+src/recce/scout.py
 src/recce.egg-info/PKG-INFO
 src/recce.egg-info/SOURCES.txt
 src/recce.egg-info/dependency_links.txt
