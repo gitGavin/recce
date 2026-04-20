@@ -38,3 +38,17 @@ After reading Anthropic's "Building Effective Agents" and the context engineerin
 - The Gaps/Weaknesses section tends to be thin — the writer seems reluctant to be critical, probably because the scout notes are mostly from official sources which are naturally positive.
 
 These observations will feed directly into the critic prompt and the eval rubric.
+
+## 2026-04-20 — Week 3: Full 4-agent chain
+
+**The critic-reviser chain works — and the improvement is visible.** Comparing draft.md vs final.md side by side, the reviser consistently fixes the weaknesses the critic identifies. The most common improvements: filling in thin Gaps/Weaknesses sections, sharpening vague recommendations into specific actions, and removing unsourced claims the writer had hallucinated. The chain is doing what the PRD said it would.
+
+**The critic prompt needed calibration.** My first version was too soft — it found 1-2 minor issues and called it done. Adding the "must identify ≥2 weaknesses" floor and the explicit failure mode checklist (unsourced claims, weak recommendations, thin sections, vague citations, redundancy) made the critic substantially more useful. The key insight: a critic that praises the draft is useless. I removed any language that allowed positive feedback and the output quality jumped immediately.
+
+**The critic → reviser contract held up.** The numbered-weakness format works exactly as designed in the PRD. Each weakness names the section, states the problem, and states the fix. The reviser addresses them in order. I can trace exactly which critique led to which change in the final output. This is the debugging superpower of prompt chaining — when something goes wrong, I know which step to fix.
+
+**The reviser mostly respects the "no new claims" rule.** In 2 out of 3 runs, the reviser only used information from scout notes. In one run, it added a plausible-sounding claim about pricing that wasn't in the sources. This is the exact risk I flagged in the PRD. For now the prompt instruction is sufficient, but this will be an eval criterion in Week 4 — automated checking that every claim in final.md traces back to scout_notes.md.
+
+**Rate limiting is the biggest operational pain.** With 4 agents, the pipeline makes 4 API calls, and my free-tier rate limit (30K input tokens/minute) gets hit between almost every step. Added a retry-with-backoff helper that waits and retries automatically. This turned a 2-minute pipeline into a 5-minute one, but it runs unattended now. Worth noting in the README as expected runtime. In a production context, this is where you'd argue for a higher rate limit tier or implement caching — scout results rarely change hour to hour.
+
+**Prompt chaining was the right call.** After seeing the full chain run, I'm confident evaluator-optimizer would have been overkill. One critique pass catches the structural issues. A second pass would mostly nitpick wording, which isn't worth the cost or latency. If Week 4 evals disagree, I'll revisit — but right now the data supports the design choice.

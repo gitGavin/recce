@@ -8,6 +8,8 @@ from datetime import date
 
 from recce.scout import run_scout
 from recce.writer import run_writer
+from recce.critic import run_critic
+from recce.reviser import run_reviser
 
 
 def slugify(text: str) -> str:
@@ -46,11 +48,31 @@ def main():
         f.write(draft)
     print(f"  Saved: {draft_path}")
 
+    time.sleep(5)
+
+    # Step 3: Critic
+    print("Critic reviewing draft...")
+    critique = run_critic(draft, scout_notes)
+    critique_path = f"{run_dir}/critique.md"
+    with open(critique_path, "w") as f:
+        f.write(critique)
+    print(f"  Saved: {critique_path}")
+
+    time.sleep(5)
+
+    # Step 4: Reviser
+    print("Reviser incorporating feedback...")
+    final = run_reviser(draft, critique, scout_notes)
+    final_path = f"{run_dir}/final.md"
+    with open(final_path, "w") as f:
+        f.write(final)
+    print(f"  Saved: {final_path}")
+
     # Done
     print()
     print(f"=== Done. Output in {run_dir}/ ===")
     print()
-    print(draft)
+    print(final)
 
 
 if __name__ == "__main__":
