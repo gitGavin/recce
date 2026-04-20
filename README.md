@@ -24,7 +24,7 @@ This is a portfolio project. It is also a tool I use on real work. If those two 
 
 ## Status
 
-🚧 **Week 1 of 6.** PRD locked, scaffold up, first Claude call working. See [PRD.md](./PRD.md) for the full design and [BUILD_LOG.md](./BUILD_LOG.md) for what broke along the way.
+🚀 **Week 2 of 6.** v1 live — scout + writer agents working.
 
 ## How it works
 
@@ -92,9 +92,9 @@ See [WRITEUP.md](./WRITEUP.md) (Week 5) for the full teardown. Short version com
 
 ## Running it
 
-```bash
-# Week 2, not yet. Check back end of Week 2.
-```
+export PYTHONPATH=src
+export ANTHROPIC_API_KEY="your-key"
+python -m recce.cli "Product Name"
 
 ## About
 
