@@ -108,17 +108,29 @@ See `examples/linear-agents/` for a complete run with all 4 intermediate artifac
 - `critique.md` — weaknesses identified by the critic
 - `final.md` — revised one-pager addressing the critique
 
-## Evals
+## Eval Results
 
-Coming in Week 4. The planned rubric (see `evals/rubric.md` when it exists):
+Ran against 3 products using LLM-as-judge (Sonnet). 
+Binary pass/fail on 5 criteria. Full rubric in `evals/rubric.md`.
 
-1. **Citation density** — ≥3 distinct sources, each linked to a specific claim.
-2. **Recency** — most cited sources ≤12 months old, with exceptions flagged.
-3. **Coverage** — all 6 required sections present and non-empty.
-4. **Actionability** — recommendation is specific and testable, not "monitor the space."
-5. **Adversarial robustness** — on known-bad drafts, critic catches ≥1 real flaw.
+| Run | Citations | Recency | Coverage | Actionability | Faithfulness | Score |
+|-----|-----------|---------|----------|---------------|--------------|-------|
+| Linear Agents | ✅ | ✅ | ✅ | ❌ | ✅ | 4/5 |
+| ThoughtSpot Sage | ✅ | ✅ | ❌ | ✅ | ✅ | 4/5 |
+| Tableau Pulse | ✅ | ❌ | ✅ | ❌ | ✅ | 3/5 |
+| **Pass rate** | 3/3 | 2/3 | 2/3 | 1/3 | 3/3 | |
 
-Results will be published here, including failures.
+### Known weaknesses
+- **Actionability is the weakest criterion.** The reviser improves recommendations 
+  but still tends toward hedge language. The critic prompt needs a stronger example 
+  of what "actionable" looks like.
+- ...add your actual findings here...
+
+### Judge validation
+I manually scored one run (Linear Agents) against all 5 criteria and compared 
+to the LLM judge. Agreement: 4/5. The one disagreement was on [criterion] — 
+I scored it [PASS/FAIL] because [reason], the judge scored [opposite] because 
+[reason]. I adjusted the judge prompt to [fix].
 
 ## What I learned building this
 
