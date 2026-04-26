@@ -19,7 +19,7 @@ Reviser incorporating feedback...
 
 ## Why this exists
 
-PMs burn 2–4 hours every time an exec asks "what is X doing in space Y?" The work is not hard, it is tedious: open tabs, skim, copy-paste, structure, cite, recommend. Existing tools either produce prose blobs with no structure, rely on stale training data, or cost thousands per seat.
+PMs burn hours every time an exec asks "what is X doing in space Y?" The work is not hard, it is tedious: open tabs, skim, copy-paste, structure, cite, recommend. Existing tools either produce prose blobs with no structure, rely on stale training data, or cost thousands per seat.
 
 Recce is the tool I wanted for my own job. It is built around one opinion: **a single LLM prompt cannot do competitive intelligence well, but a small number of specialized agents in a chain can.** One agent sources. One writes. One critiques. One revises. The PM reads the final output and can trace every claim back to a source.
 
