@@ -1,4 +1,5 @@
 # Building Recce: What I Learned Shipping a Multi-Agent AI Tool
+🎥 [3-min walkthrough and demo](https://www.loom.com/share/fc16361d6da546a19e2f982822ff99cb)
 
 ---
 

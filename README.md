@@ -1,6 +1,7 @@
 # Recce
 
 **A multi-agent competitive intelligence tool for product managers.**
+🎥 [3-min walkthrough and demo](https://www.loom.com/share/fc16361d6da546a19e2f982822ff99cb)
 
 Give it a product name. Get back a PM-ready one-pager in under 5 minutes: positioning, pricing, features, gaps, and a recommendation — with citations.
 
