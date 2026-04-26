@@ -2,6 +2,7 @@
 
 import os
 from anthropic import Anthropic
+from langsmith.wrappers import wrap_anthropic
 
 
 def run_critic(draft: str, scout_notes: str) -> str:
@@ -9,7 +10,7 @@ def run_critic(draft: str, scout_notes: str) -> str:
     Takes a draft one-pager and the original scout notes,
     returns a numbered list of specific weaknesses.
     """
-    client = Anthropic()
+    client = wrap_anthropic(Anthropic())
 
     system_prompt = """You are a senior PM reviewing a competitive intelligence one-pager for quality.
 

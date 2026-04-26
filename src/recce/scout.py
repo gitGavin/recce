@@ -2,6 +2,7 @@
 
 import os
 from anthropic import Anthropic
+from langsmith.wrappers import wrap_anthropic
 
 
 def run_scout(product_name: str) -> str:
@@ -9,7 +10,7 @@ def run_scout(product_name: str) -> str:
     Takes a product name, searches the web for recent competitive intel,
     and returns structured notes about what it found.
     """
-    client = Anthropic()
+    client = wrap_anthropic(Anthropic())
 
     system_prompt = """You are a competitive intelligence researcher working for a product manager.
 

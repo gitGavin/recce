@@ -2,13 +2,14 @@
 
 import os
 from anthropic import Anthropic
+from langsmith.wrappers import wrap_anthropic
 
 
 def run_writer(scout_notes: str) -> str:
     """
     Takes structured scout notes and produces a markdown one-pager.
     """
-    client = Anthropic()
+    client = wrap_anthropic(Anthropic())
 
     system_prompt = """You are a senior product manager writing a competitive intelligence one-pager.
 

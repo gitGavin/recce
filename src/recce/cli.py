@@ -11,6 +11,8 @@ from recce.writer import run_writer
 from recce.critic import run_critic
 from recce.reviser import run_reviser
 
+from langsmith import traceable
+
 
 def slugify(text: str) -> str:
     """Turn a product name into a filesystem-safe slug."""
@@ -31,6 +33,7 @@ def call_with_retry(fn, *args, max_retries=3):
     print("  Failed after max retries.")
     sys.exit(1)
 
+@traceable(name="Recce Pipeline")
 def main():
     if len(sys.argv) < 2:
         print("Usage: python -m recce.cli 'Product Name'")

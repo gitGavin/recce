@@ -2,6 +2,7 @@
 
 import os
 from anthropic import Anthropic
+from langsmith.wrappers import wrap_anthropic
 
 
 def run_reviser(draft: str, critique: str, scout_notes: str) -> str:
@@ -9,7 +10,7 @@ def run_reviser(draft: str, critique: str, scout_notes: str) -> str:
     Takes the draft, the critic's feedback, and the original scout notes.
     Returns a revised one-pager that addresses all weaknesses.
     """
-    client = Anthropic()
+    client = wrap_anthropic(Anthropic())
 
     system_prompt = """You are a senior PM revising a competitive intelligence one-pager.
 

@@ -110,27 +110,39 @@ See `examples/linear-agents/` for a complete run with all 4 intermediate artifac
 
 ## Eval Results
 
-Ran against 3 products using LLM-as-judge (Sonnet). 
-Binary pass/fail on 5 criteria. Full rubric in `evals/rubric.md`.
+Ran against 4 products using LLM-as-judge (Sonnet). Binary pass/fail 
+on 5 criteria. Full rubric in `evals/rubric.md`.
 
 | Run | Citations | Recency | Coverage | Actionability | Faithfulness | Score |
 |-----|-----------|---------|----------|---------------|--------------|-------|
-| Linear Agents | ✅ | ✅ | ✅ | ❌ | ✅ | 4/5 |
-| ThoughtSpot Sage | ✅ | ✅ | ❌ | ✅ | ✅ | 4/5 |
-| Tableau Pulse | ✅ | ❌ | ✅ | ❌ | ✅ | 3/5 |
-| **Pass rate** | 3/3 | 2/3 | 2/3 | 1/3 | 3/3 | |
+| Claude Cowork | ✅ | ✅ | ✅ | ✅ | ❌ | 4/5 |
+| Snowflake Cortex | ✅ | ✅ | ✅ | ✅ | ✅ | 5/5 |
+| Tableau Pulse | ✅ | ✅ | ✅ | ✅ | ✅ | 5/5 |
+| v0 | ✅ | ✅ | ✅ | ✅ | ❌ | 4/5 |
+| **Pass rate** | 4/4 | 4/4 | 4/4 | 4/4 | 2/4 | |
 
 ### Known weaknesses
-- **Actionability is the weakest criterion.** The reviser improves recommendations 
-  but still tends toward hedge language. The critic prompt needs a stronger example 
-  of what "actionable" looks like.
-- ...add your actual findings here...
+
+**Faithfulness is the weakest criterion (50% pass rate).** Both failures 
+share the same pattern: the reviser subtly restructures or consolidates 
+claims in ways that shift attribution or merge separate facts. This is not 
+hallucination from nothing — it is lossy compression of real information. 
+The fix would be stricter reviser prompt constraints on paraphrasing, 
+or a post-revision faithfulness check before output.
 
 ### Judge validation
-I manually scored one run (Linear Agents) against all 5 criteria and compared 
-to the LLM judge. Agreement: 4/5. The one disagreement was on [criterion] — 
-I scored it [PASS/FAIL] because [reason], the judge scored [opposite] because 
-[reason]. I adjusted the judge prompt to [fix].
+
+I manually scored the Claude Cowork run against all 5 criteria and compared 
+to the LLM judge. Agreement: 4/5. For the v0 run, the judge flagged a 
+faithfulness failure on the Free tier "$5 monthly credits" claim, but manual 
+review confirms this fact appears in the scout notes — the model consolidated 
+two separate sentences into one, which the judge misread as fabrication. 
+Actual faithfulness pass rate is likely 3/4, not 2/4.
+
+This highlights a known limitation of LLM-as-judge: it can be overly strict 
+when source information is spread across multiple sentences and the output 
+consolidates it. A more robust eval would check semantic equivalence rather 
+than near-exact matching.
 
 ## What I learned building this
 
@@ -145,4 +157,4 @@ See [WRITEUP.md](./WRITEUP.md) (Week 5) for the full teardown. See [BUILD_LOG.md
 
 ## About
 
-Built by [Gavin Jin](https://www.linkedin.com/in/gavinjin/) as part of a 6-week sprint to sharpen my AI PM craft outside my day job leading Project ARIA at Cisco. If you are hiring AI PMs and want to talk about any of the decisions in the PRD, my inbox is open.
+Built by [Gavin Jin](https://www.linkedin.com/in/gavinjin/) as part of a 6-week sprint to sharpen my AI PM craft outside my day job. If you are hiring AI PMs and want to talk about any of the decisions in the PRD, my inbox is open.
