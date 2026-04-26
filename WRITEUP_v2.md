@@ -1,7 +1,5 @@
 # Building Recce: What I Learned Shipping a Multi-Agent AI Tool
 
-🎥 [3-min walkthrough video](YOUR-LOOM-LINK-HERE)
-
 ---
 
 ## The Problem
@@ -60,6 +58,8 @@ This distinction matters because the fix is different. Hallucination requires gu
 
 **The judge itself had a false positive.** Manual validation of one run revealed that the judge flagged a consolidation as fabrication when the information was actually present in the scout notes, just spread across two sentences. This is a known limitation of LLM-as-judge — it struggles with semantic equivalence when source information is distributed. Catching this is exactly why you validate automated evals against human judgment. The actual faithfulness pass rate is likely 3/4, not 2/4.
 
+**Two eval systems, one rubric.** I implemented the same 5 criteria in two places: a repo-based eval script (`evals/run_evals.py`) that anyone can clone and run, and a LangSmith evaluation pipeline that provides a visual dashboard for comparing experiments over time. The repo-based version is the portfolio artifact — transparent, portable, and readable. The LangSmith version is the operational tool — when I change a prompt and want to know whether faithfulness improved or regressed, I re-run the LangSmith eval and compare the two experiments side by side. Having both is deliberate: one is for the reader, the other is for the builder.
+
 ## What I'd Do With Another Month
 
 Three things, ranked by impact:
@@ -79,6 +79,8 @@ Three things, ranked by impact:
 **Context engineering is a real discipline.** The shift from "prompt engineering" to "context engineering" isn't just vocabulary — it's a fundamentally different design problem. The scout notes are not a prompt; they are context that the writer, critic, and reviser all consume differently. Deciding what information to include, exclude, and structure in that context determined output quality more than the instructions in any individual prompt.
 
 **Shipping beats studying.** I read the Anthropic "Building Effective Agents" post in Week 1 and understood the five workflow patterns intellectually. By Week 3, after actually building a prompt chain and hitting real problems — rate limits, lossy compression, critics that rubber-stamp — I understood them practically. The gap between those two kinds of understanding is enormous, and it only closes by building.
+
+**Observability is not optional.** Adding LangSmith after the initial build was an immediate upgrade — not just for tracing, but for evaluation. Being able to see every agent's input and output in a trace view replaced a workflow of reading markdown files and guessing. Running evals through LangSmith's experiment framework and comparing results across prompt changes replaced a workflow of eyeballing terminal output. For any AI system beyond a single prompt, you need both tracing and structured evaluation from day one.
 
 ---
 

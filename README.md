@@ -144,6 +144,26 @@ when source information is spread across multiple sentences and the output
 consolidates it. A more robust eval would check semantic equivalence rather 
 than near-exact matching.
 
+## Observability & Evaluation Platform
+
+Added [LangSmith](https://smith.langchain.com) for two purposes:
+
+**Tracing.** Every agent call is logged with full prompt, response, token count, and latency. Each Recce run appears as a nested trace — scout → writer → critic → reviser — enabling prompt-level debugging without print statements.
+
+**Evaluation.** The same 5-criterion rubric from the repo-based eval suite also runs through LangSmith's evaluation framework. This provides a visual dashboard for comparing eval results across experiments — useful when iterating on prompts and measuring whether changes improve or regress quality.
+
+The repo-based eval suite (`evals/run_evals.py`) remains the portable, transparent version anyone can run. LangSmith adds the operational layer for ongoing development.
+
+```bash
+# Run repo-based evals (no LangSmith needed)
+python evals/run_evals.py
+
+# Run LangSmith evals (requires LANGSMITH_API_KEY)
+python evals/create_dataset.py    # upload runs as dataset
+python evals/langsmith_eval.py    # run judge against dataset
+```
+
+
 ## What I learned building this
 
 See [WRITEUP.md](./WRITEUP.md) (Week 5) for the full teardown. See [BUILD_LOG.md](./BUILD_LOG.md) for the running record of decisions and debugging.
