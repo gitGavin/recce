@@ -23,12 +23,6 @@ PMs burn hours every time an exec asks "what is X doing in space Y?" The work is
 
 Recce is the tool I wanted for my own job. It is built around one opinion: **a single LLM prompt cannot do competitive intelligence well, but a small number of specialized agents in a chain can.** One agent sources. One writes. One critiques. One revises. The PM reads the final output and can trace every claim back to a source.
 
-This is a portfolio project. It is also a tool I use on real work. If those two things stop being true at the same time, I have lost the plot.
-
-## Status
-
-🚀 **Week 3 of 6.** Full 4-agent chain live — scout, writer, critic, reviser. See [PRD.md](./PRD.md) for the design, [BUILD_LOG.md](./BUILD_LOG.md) for what broke along the way, and `examples/` for sample output.
-
 ## How it works
 
 ```
@@ -164,7 +158,6 @@ python evals/create_dataset.py    # upload runs as dataset
 python evals/langsmith_eval.py    # run judge against dataset
 ```
 
-
 ## What I learned building this
 
 See [WRITEUP.md](./WRITEUP.md) (Week 5) for the full teardown. See [BUILD_LOG.md](./BUILD_LOG.md) for the running record of decisions and debugging.
@@ -178,4 +171,4 @@ See [WRITEUP.md](./WRITEUP.md) (Week 5) for the full teardown. See [BUILD_LOG.md
 
 ## About
 
-Built by [Gavin Jin](https://www.linkedin.com/in/gavinjin/) as part of a 6-week sprint to sharpen my AI PM craft outside my day job. If you are hiring AI PMs and want to talk about any of the decisions in the PRD, my inbox is open.
+Built by [Gavin Jin](https://www.linkedin.com/in/gavinjin/) as part of a 2-week sprint to sharpen my AI PM craft outside my day job.

@@ -4,13 +4,13 @@ A running log of decisions, dead ends, and things that broke. Written for my fut
 
 ---
 
-## 2026-04-15 — Week 1, Day 1
+## 2026-04-15
 
 Decided to name the project Recce. Other candidates were Probe and Scry. Recce won because [fill in your real reason — don't copy mine].
 
 Scaffolded the repo with PRD, README, and reading list. Deliberately did not write any code yet — Week 1 is for locking the design and the vocabulary, not for shipping. The risk I'm managing: starting to code before the design is defensible means I'll end up rewriting the design to match the code, which is backwards.
 
-## 2026-04-20 — Week 1: PRD v0.2 design decisions
+## 2026-04-20: PRD v0.2 design decisions
 
 After reading Anthropic's "Building Effective Agents" and the context engineering post, I revised three design choices in the PRD.
 
@@ -22,7 +22,7 @@ After reading Anthropic's "Building Effective Agents" and the context engineerin
 
 **Added the critic → reviser contract.** This was the non-obvious design detail that came out of the pattern change. In evaluator-optimizer, the loop naturally defines "done" (score ≥ threshold). In prompt chaining, you need an explicit contract: the critic outputs a numbered list of specific, actionable weaknesses — not a score, not vibes — and the reviser addresses each one without introducing new unsourced claims. This keeps the chain deterministic and debuggable.
 
-## 2026-04-20 — Week 2: Scout + Writer v1
+## 2026-04-20: Scout + Writer v1
 
 **Scout agent works, but web search produces a lot of token volume.** The scout's web_search tool with max_uses=10 generates ~12K characters of structured notes for a single product. That's fine for quality — the sources are real, recent, and well-structured — but it eats into Anthropic's 30K input token per minute rate limit on my current API tier. Running the scout and writer back-to-back hits 429 errors because the writer call comes in before the rate limit window resets.
 
@@ -39,7 +39,7 @@ After reading Anthropic's "Building Effective Agents" and the context engineerin
 
 These observations will feed directly into the critic prompt and the eval rubric.
 
-## 2026-04-20 — Week 3: Full 4-agent chain
+## 2026-04-20: Full 4-agent chain
 
 **The critic-reviser chain works — and the improvement is visible.** Comparing draft.md vs final.md side by side, the reviser consistently fixes the weaknesses the critic identifies. The most common improvements: filling in thin Gaps/Weaknesses sections, sharpening vague recommendations into specific actions, and removing unsourced claims the writer had hallucinated. The chain is doing what the PRD said it would.
 
@@ -53,7 +53,7 @@ These observations will feed directly into the critic prompt and the eval rubric
 
 **Prompt chaining was the right call.** After seeing the full chain run, I'm confident evaluator-optimizer would have been overkill. One critique pass catches the structural issues. A second pass would mostly nitpick wording, which isn't worth the cost or latency. If Week 4 evals disagree, I'll revisit — but right now the data supports the design choice.
 
-## 2026-04-21 — Week 4: Evals
+## 2026-04-21: Evals
 
 **Eval results: 18/20 criteria passed across 4 runs.** Citation density, recency, coverage, and actionability all passed 4/4. Faithfulness was the only criterion that failed, at 2/4 (likely 3/4 after manual validation — see below). The structural criteria being perfect tells me the critic-reviser chain is doing its job well. The faithfulness failures tell me where the chain still leaks.
 
@@ -66,3 +66,17 @@ These observations will feed directly into the critic prompt and the eval rubric
 **What I'd fix based on eval findings.** The reviser prompt needs a stronger constraint on consolidation. Something like: "When combining information from multiple sentences in the scout notes, preserve the original attribution. Do not merge claims from different sources into a single sentence." I'd also consider adding a lightweight post-revision faithfulness check — a fifth agent that specifically cross-references the final output against scout notes before saving. But that adds cost and latency, so I'd want eval data showing the prompt fix alone isn't sufficient before adding another agent to the chain.
 
 **Cost note.** Running evals against 4 runs cost roughly $1-2 in API credits, with 60-second pauses between each run to avoid rate limits. At scale, you'd want to batch evals during off-peak hours or use a lower-cost model for the judge. For this project, Sonnet as judge is fine — the eval prompts are structured enough that Haiku might also work, which would cut eval costs significantly.
+
+## 2026-04-25: LangSmith, writeup, and demo
+
+**Added LangSmith tracing in ~30 minutes.** The integration was minimal — two lines per agent file (import `wrap_anthropic`, wrap the client) and a `@traceable` decorator on the CLI pipeline. Every run now logs a full nested trace: scout → writer → critic → reviser, each with prompt, response, token count, and latency. The immediate value was being able to click into a trace and see exactly what each agent received and returned, instead of reading saved markdown files and guessing. The cost tracking is also useful — runs cost 15–25 cents depending on scout source volume.
+
+**Wired the same eval rubric into LangSmith's evaluation framework.** Created a dataset from all 6 completed runs and ran the 5-criterion judge through LangSmith's `evaluate()` function. Same rubric, same judge, but now the results live in a dashboard where I can compare experiments side by side. The repo-based eval (`evals/run_evals.py`) is the portable artifact — anyone can clone and run it. LangSmith evals are the operational tool for prompt iteration — change a prompt, re-run, compare. Having both is deliberate and I can explain why in an interview.
+
+**Wrote WRITEUP.md.** ~1500 words covering the problem, why a single prompt fails, design decisions, eval results, what I'd do with another month, and what I learned about being an AI PM. The hardest section to write was "What I Learned" — easy to fall into generic AI hype, hard to say something specific and honest. The faithfulness finding carried the evals section: "the failure mode wasn't hallucination, it was lossy compression" is a sentence I can use in interviews.
+
+**Recorded a 3-minute Loom demo.** Walked through the command, all four output files, the repo-based eval results, the LangSmith eval dashboard, and the tracing view. Kept each file to one sentence. The eval section got the most airtime — that's the differentiator, not the agent code.
+
+**Scoped for 6 weeks, shipped in ~10 days.** The plan was 30 hours at 5 hours/week. I had a light workday and compressed Weeks 1–3 into one session, then finished Weeks 4–5 across two more sessions. The plan wasn't wrong — it was deliberately conservative for a PM with a day job and a family. But having weekly milestones with clear "done" criteria meant I could sprint when I had momentum without losing structure. The weeks I moved fastest were the ones where I knew exactly what "done" looked like before I started.
+
+**What's left.** Week 6 is polish — clean up commit history, update LinkedIn, practice the interview story. The project is functionally complete. Could also run Recce on more products to build a larger eval dataset, which would make the results table more credible.

@@ -85,4 +85,4 @@ Three things, ranked by impact:
 
 ---
 
-*Built by Gavin Jin as part of a 6-week sprint to sharpen my AI PM craft outside my day job. Code, eval results, and build log at [github.com/gitGavin/recce](https://github.com/gitGavin/recce). If you're hiring AI PMs, my inbox is open.*
+*Built by Gavin Jin as part of a 2-week sprint to sharpen my AI PM craft outside my day job. Code, eval results, and build log at [github.com/gitGavin/recce](https://github.com/gitGavin/recce).*
